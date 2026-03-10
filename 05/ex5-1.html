@@ -20,12 +20,17 @@
             var objects = await osql.connect(sql);
             console.log(objects);
             var html = '';
-            html = html + '<ul>';
+            html = html + '<table border="1">';
             for (var i = 0; i < objects.length; i++) {
                 var object = objects[i];
-                html = html + '<li>' + object.name + ',' + object.tweet + ',' + object.time + '</li>';
+                html = html + '<tr>';
+                html = html + '<td>' + [i+1] + '<td>';
+                html = html + '<td>' + object.name + '<td>';
+                html = html + '<td>' + object.tweet + '<td>';
+                html = html + '<td>' + object.time + '<td>';
+                html = html + '<tr>';
             }
-            html = html + '</ul>';
+            html = html + '</table>';
             document.getElementById('result').innerHTML = html;
         }
 
@@ -40,12 +45,17 @@
             var objects = await osql.connect(sql);
             console.log(objects);
             var html = '';
-            html = html + '<ul>';
+            html = html + '<table border="1">';
             for (var i = 0; i < objects.length; i++) {
                 var object = objects[i];
-                html = html + '<li>' + object.name + ',' + object.tweet + ',' + object.time + '</li>';
+                html = html + '<tr>';
+                html = html + '<td>' + [i+1] + '<td>';
+                html = html + '<td>' + object.name + '<td>';
+                html = html + '<td>' + object.tweet + '<td>';
+                html = html + '<td>' + object.time + '<td>';
+                html = html + '<tr>';
             }
-            html = html + '</ul>';
+            html = html + '</table>';
             document.getElementById('result').innerHTML = html;
         }
     </script>
