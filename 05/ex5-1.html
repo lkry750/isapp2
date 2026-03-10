@@ -28,12 +28,23 @@
             html = html + '</ul>';
             document.getElementById('result').innerHTML = html;
         }
+
+        function button2Pressed() {
+            doSearch();
+        }
+
+        async function doSearch() {
+            var sql = `select * from Tweets`;
+        }
     </script>
 
 </head>
 
 <body>
-    <h1>tweet</h1>
+    <h1>Tweets</h1>
+    <br>
+    検索ツール:<input id="tf1" type="textfield">
+    <br>
     <p>ツイート一覧</p>
     <button onclick="button1Pressed()">X</button>
     <hr>
