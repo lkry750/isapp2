@@ -34,7 +34,19 @@
         }
 
         async function doSearch() {
-            var sql = `select * from Tweets`;
+            var tweet = document.getElementById('tf1').value;
+
+            var sql = `select * from Tweets where tweet like '%${tweet}%' order by time desc limit 20`;
+            var objects = await osql.connect(sql);
+            console.log(objects);
+            var html = '';
+            html = html + '<ul>';
+            for (var i = 0; i < objects.length; i++) {
+                var object = objects[i];
+                html = html + '<li>' + object.name + ',' + object.tweet + ',' + object.time + '</li>';
+            }
+            html = html + '</ul>';
+            document.getElementById('result').innerHTML = html;
         }
     </script>
 
@@ -45,6 +57,7 @@
     <br>
     検索ツール:<input id="tf1" type="textfield">
     <br>
+    <button onclick="button2Pressed()">X</button>
     <p>ツイート一覧</p>
     <button onclick="button1Pressed()">X</button>
     <hr>
