@@ -26,6 +26,31 @@
             document.getElementById('result').innerHTML = "tweetしました";
             document.getElementById('tf2').value = "";
         }
+
+        function button2Pressed() {
+            doSearch();
+        }
+
+        async function doSearch() {
+            var tweet = document.getElementById('tf3').value;
+
+            var sql = `select * from Tweets where tweet like '%${tweet}%' order by time desc limit 20`;
+            var objects = await osql.connect(sql);
+            console.log(objects);
+            var html = '';
+            html = html + '<table border="1">';
+            for (var i = 0; i < objects.length; i++) {
+                var object = objects[i];
+                html = html + '<tr>';
+                html = html + '<td>' + [i+1] + '<td>';
+                html = html + '<td>' + object.name + '<td>';
+                html = html + '<td>' + object.tweet + '<td>';
+                html = html + '<td>' + object.time + '<td>';
+                html = html + '<tr>';
+            }
+            html = html + '</table>';
+            document.getElementById('result').innerHTML = html;
+        }
     </script>
 
 </head>
@@ -38,6 +63,8 @@
     tweet:<input id="tf2" type="textfield">
     <button onclick="button1Pressed()">tweet</button>
     <br>
+    tweetの検索ツール:<input id="tf3" type="textfield">
+    <button onclick="button2Pressed()">X</button>
     <p id="result"></p>
 </body>
 
