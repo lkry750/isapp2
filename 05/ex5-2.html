@@ -13,6 +13,8 @@
 
         $().ready(function () {
             doSearch();
+            x = 0;
+            setInterval(doSearch, 2000);
         });
 
         function button1Pressed() {
@@ -54,6 +56,8 @@
             }
             html = html + '</table>';
             document.getElementById('result').innerHTML = html;
+            x++;
+            document.getElementById('count').innerHTML = x;
         }
     </script>
 
@@ -61,7 +65,7 @@
 
 <body>
     <h1>Tweets</h1>
-    <br>
+    自動更新回数<p id="count"></p>
     名前:<input id="tf1" value="名無し" type="textfield">
     <br>
     tweet:<input id="tf2" type="textfield">
@@ -70,6 +74,7 @@
     tweetの検索ツール:<input id="tf3" type="textfield">
     <button onclick="button2Pressed()">X</button>
     <p id="result"></p>
+    
 </body>
 
 </html>
