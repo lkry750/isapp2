@@ -17,8 +17,13 @@
         
 
         function init() {
-            var name = sessionStorage.getItem('userid');
-            document.getElementById('welcome').innerHTML = 'ようこそ' + name + 'さん';
+            var username = sessionStorage.getItem('username');
+            document.getElementById('welcome').innerHTML = 'ようこそ' + username + 'さん';
+        }
+
+        function buttonPressed() {
+            var userid = sessionStorage.getItem('userid');
+            location.href = 'update.html?userid=' + userid;
         }
     </script>
 
@@ -28,7 +33,7 @@
     <h1>ユーザトップ</h1>
     <p id="welcome"></p>
     <hr>
-
+    ユーザ情報変更:<button onclick="buttonPressed()">x</button>
 </body>
 
 </html>
