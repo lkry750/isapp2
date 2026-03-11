@@ -16,7 +16,8 @@
         });
 
         async function execSelect() {
-            var sql = 'select * from Users';
+            var username = sessionStorage.getItem('username');
+            var sql = `select * from Follows where fromid = '${username}'`;
             var objects = await osql.connect(sql);
             console.log(objects);
             var html = '';
@@ -24,35 +25,36 @@
             for (var i = 0; i < objects.length; i++) {
                 html = html + '<tr>';
                 var object = objects[i];
-                html = html + '<td>' + object.id + '</td>';
-                html = html + '<td>' + object.name + '</td>';
-                html = html + '<td>' + '<a href="update.html?userid=' + object.id + '">変更</a>' + '</td>';
-                html = html + '<td>' + '<button onclick="buttonPressed(\''+ object.id + '\')">削除</button>' + '</td>';
+                html = html + '<td>' + object.toid + '</td>';
+                html = html + '<td>' + '<button onclick="buttonPressed(\'' + object.fromid + '\')">削除</button>' + '</td>'
                 html = html + '</tr>';
             }
             html = html + '</table>';
             document.getElementById('result').innerHTML = html;
         }
 
-        function buttonPressed(id) {
-            deleteid(id);
+        function buttonPressed(name) {
+            Followdelete(name);
         }
 
-        async function deleteid(id) {
+        async function Followdelete(name) {
             var ans = window.confirm('本当にいいんですね？');
             if (ans == false) return;
 
-            var sql = `delete from Users where id = "${id}"`;
-            await osql.connect(sql);
+            var username = sessionStorage.getItem('username');
+            var sql = `delete from Follows where fromid = "${username}" and toid = "${name}"`;
+            var objects = await osql.connect(sql);
             execSelect();
-            alert('消しました');
+            alert("消しました");
         }
     </script>
 
 </head>
 
 <body>
-    <h1>Users</h1>
+    <h1>Follows</h1>
+    <p>あなたがフォローしている人</p>
+    <hr>
     <p id="result">xxxx</p>
 </body>
 
