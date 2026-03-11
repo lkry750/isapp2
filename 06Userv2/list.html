@@ -27,20 +27,23 @@
                 html = html + '<td>' + object.id + '</td>';
                 html = html + '<td>' + object.name + '</td>';
                 html = html + '<td>' + '<a href="update.html?userid=' + object.id + '">変更</a>' + '</td>';
+                html = html + '<td>' + '<button onclick="buttonPressed(\''+ object.id + '\')">削除</button>' + '</td>';
                 html = html + '</tr>';
             }
             html = html + '</table>';
             document.getElementById('result').innerHTML = html;
         }
 
-        function buttonPressed() {
-            deleteid();
+        function buttonPressed(id) {
+            deleteid(id);
         }
 
-        async function deleteid() {
-            var id = document.getElementById('id').value;
+        async function deleteid(id) {
+            var ans = window.confirm('本当にいいんですね？');
+            if (ans == false) return;
+
             var sql = `delete from Users where id = "${id}"`
-            var objects = await osql.connect(sql);
+            await osql.connect(sql);
             execSelect();
         }
     </script>
@@ -49,10 +52,6 @@
 
 <body>
     <h1>Users</h1>
-    <hr>
-    ID:<input id="id" value="" type="textfield">
-    <button onclick="buttonPressed()">削除</button>
-    <hr>
     <p id="result">xxxx</p>
 </body>
 
