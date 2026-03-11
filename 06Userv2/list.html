@@ -32,12 +32,27 @@
             html = html + '</table>';
             document.getElementById('result').innerHTML = html;
         }
+
+        function buttonPressed() {
+            deleteid();
+        }
+
+        async function deleteid() {
+            var id = document.getElementById('id').value;
+            var sql = `delete from Users where id = "${id}"`
+            var objects = await osql.connect(sql);
+            execSelect();
+        }
     </script>
 
 </head>
 
 <body>
     <h1>Users</h1>
+    <hr>
+    ID:<input id="id" value="" type="textfield">
+    <button onclick="buttonPressed()">削除</button>
+    <hr>
     <p id="result">xxxx</p>
 </body>
 
